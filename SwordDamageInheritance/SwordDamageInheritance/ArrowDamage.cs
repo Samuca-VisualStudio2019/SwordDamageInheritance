@@ -65,12 +65,10 @@ namespace SwordDamageInheritance
 
         private void CalculateDamage()
         {
-            decimal magicMultiplier = 1M;
-            if (magic) magicMultiplier = 1.75M;
-
-            Damage = BASE_DAMAGE;
-            Damage = (int)(Roll * magicMultiplier) + BASE_DAMAGE;
-            if (flaming) Damage += FLAME_DAMAGE;
+            decimal baseDamage = Roll * BASE_MULTIPLIER;
+            if (magic) baseDamage *= MAGIC_MULTIPLIER;
+            if (flaming) Damage = (int)Math.Ceiling(baseDamage + FLAME_DAMAGE);
+            else Damage = (int)Math.Ceiling(baseDamage);
 
         }
         /// <summary>
